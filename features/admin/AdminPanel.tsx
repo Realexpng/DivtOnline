@@ -53,9 +53,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ lang }) => {
 
   const handleDeleteUser = async (id: string) => {
     if (confirm('Ви впевнені, що хочете видалити цього користувача?')) {
-      const allUsers = await mockDb.getUsers();
-      const updated = allUsers.filter(u => u.id !== id);
-      await mockDb.saveUsers(updated);
+      await mockDb.deleteUser(id);
       refreshData();
     }
   };
@@ -88,16 +86,14 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ lang }) => {
 
   const handleCertDelete = async (id: string) => {
     if (confirm('Видалити цей запис? Це дія незворотна.')) {
-      const allCerts = await mockDb.getCertificates();
-      const updated = allCerts.filter(c => c.id !== id);
-      await mockDb.saveCertificates(updated);
+      await mockDb.deleteCertificate(id);
       refreshData();
     }
   };
 
   const handleClearAllCerts = async () => {
     if (confirm('Видалити абсолютно всі довідки з бази даних? Вся історія замовлень зникне.')) {
-      await mockDb.saveCertificates([]);
+      await mockDb.deleteAllCertificates();
       refreshData();
     }
   };
@@ -123,9 +119,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ lang }) => {
 
   const handleEndChat = async (userId: string) => {
     if (confirm('Ви впевнені, що хочете ЗАВЕРШИТИ ТА ВИДАЛИТИ чат? Це видалить всю історію переписки в обох сторін.')) {
-      const allChats = await mockDb.getChats();
-      const updatedChats = allChats.filter(c => !(c.userId === userId && c.isActive));
-      await mockDb.saveChats(updatedChats);
+      await mockDb.deleteChat(userId);
       setSelectedChat(null);
       refreshData();
     }
