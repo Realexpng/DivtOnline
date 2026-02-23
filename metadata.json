@@ -1,0 +1,7 @@
+{
+  "name": "DIWT Academic Portal",
+  "description": "Electronic portal for the Danube Institute of Water Transport (VSP 'DIWT NTU'), featuring student dashboards, certificate ordering, live chat, and an administrative panel.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
