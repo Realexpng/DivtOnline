@@ -164,5 +164,41 @@ export const mockDb = {
     } catch (e) {
       console.error("Failed to sync chats", e);
     }
+  },
+
+  deleteUser: async (userId: string) => {
+    try {
+      const { error } = await supabase.from('users').delete().eq('id', userId);
+      if (error) throw error;
+    } catch (e) {
+      console.error("Failed to delete user", e);
+    }
+  },
+
+  deleteCertificate: async (certId: string) => {
+    try {
+      const { error } = await supabase.from('certificates').delete().eq('id', certId);
+      if (error) throw error;
+    } catch (e) {
+      console.error("Failed to delete certificate", e);
+    }
+  },
+
+  deleteAllCertificates: async () => {
+    try {
+      const { error } = await supabase.from('certificates').delete().neq('id', '0'); // Delete all
+      if (error) throw error;
+    } catch (e) {
+      console.error("Failed to delete all certificates", e);
+    }
+  },
+
+  deleteChat: async (userId: string) => {
+    try {
+      const { error } = await supabase.from('chats').delete().eq('user_id', userId);
+      if (error) throw error;
+    } catch (e) {
+      console.error("Failed to delete chat", e);
+    }
   }
 };
